@@ -1,0 +1,41 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Data
+data/*
+!data/.gitkeep
+
+# Storage
+storage/*
+!storage/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary
+*.tmp
+*.swp
