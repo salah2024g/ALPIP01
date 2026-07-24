@@ -461,3 +461,20 @@ Delivered:
 - Integration Tests
 - ADR-009
 
+
+## Pack 014
+
+Status: Completed
+
+Delivered:
+
+- Arabic Legal Structure Parser
+- Book Detection
+- Chapter Detection
+- Section Detection
+- Article Detection
+- Arabic Number Normalization
+- ALDF Export
+- Integration Tests
+- ADR-010
+
