@@ -478,3 +478,18 @@ Delivered:
 - Integration Tests
 - ADR-010
 
+
+## Pack 015
+
+Status: Completed
+
+Delivered:
+
+- Internal Reference Parser
+- External Reference Parser
+- Citation Index
+- Reference Graph
+- Reference Engine
+- Integration Tests
+- ADR-011
+
