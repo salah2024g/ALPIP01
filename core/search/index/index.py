@@ -1,21 +1,29 @@
+from typing import Dict, List
+
+
 class SearchIndex:
+    """
+    Basic in-memory search index.
 
+    This is the first implementation layer.
+    Storage backend can be replaced later
+    without changing the search interface.
+    """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        self._documents: Dict[str, str] = {}
 
-        self.documents = []
+    def add(self, document_id: str, content: str = "") -> None:
+        self._documents[document_id] = content
 
+    def get(self, document_id: str) -> str | None:
+        return self._documents.get(document_id)
 
-    def add(
-        self,
-        document
-    ):
+    def all(self) -> List[str]:
+        return list(self._documents.keys())
 
-        self.documents.append(
-            document
-        )
+    def count(self) -> int:
+        return len(self._documents)
 
-
-    def all(self):
-
-        return self.documents
+    def clear(self) -> None:
+        self._documents.clear()

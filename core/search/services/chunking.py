@@ -1,35 +1,33 @@
-from core.search.models.document_chunk import DocumentChunk
+from core.search.models.document import DocumentChunk
 
 
 class DocumentChunker:
+    """
+    Splits legal documents into searchable chunks.
+    """
 
+    def __init__(self, chunk_size: int = 500):
+        self.chunk_size = chunk_size
 
-    def chunk(
+    def split(
         self,
-        document_id: int,
-        text: str,
-        size: int = 200
-    ):
-
-        words = text.split()
+        document_id: str,
+        content: str,
+    ) -> list[DocumentChunk]:
 
         chunks = []
 
-        for index in range(
-            0,
-            len(words),
-            size
-        ):
+        words = content.split()
 
-            content = " ".join(
-                words[index:index + size]
-            )
+        for index in range(0, len(words), self.chunk_size):
+            chunk_words = words[index:index + self.chunk_size]
 
             chunks.append(
                 DocumentChunk(
+                    chunk_id=f"{document_id}_{index}",
                     document_id=document_id,
-                    content=content,
-                    position=index
+                    content=" ".join(chunk_words),
+                    position=index,
                 )
             )
 

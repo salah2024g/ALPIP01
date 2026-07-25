@@ -1,0 +1,17 @@
+from dataclasses import dataclass, field
+from typing import List
+
+
+@dataclass
+class SearchQuery:
+    text: str
+    filters: dict = field(default_factory=dict)
+    limit: int = 10
+
+
+@dataclass
+class SearchResult:
+    document_id: str
+    score: float
+    snippet: str
+    metadata: dict = field(default_factory=dict)

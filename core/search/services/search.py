@@ -1,27 +1,39 @@
-class SearchService:
+from typing import List
 
+from core.search.models.query import SearchQuery, SearchResult
+from core.search.repository.index_repository import IndexRepository
+
+
+class SearchService:
+    """
+    Search service using repository abstraction.
+    """
 
     def __init__(
         self,
-        index
-    ):
-
-        self.index = index
-
+        repository: IndexRepository,
+    ) -> None:
+        self.repository = repository
 
     def search(
         self,
-        query: str
-    ):
+        query: SearchQuery,
+    ) -> List[SearchResult]:
 
         results = []
 
-        for document in self.index.all():
+        for document_id in self.repository.all_documents():
 
-            if query in document.content:
+            content = self.repository.find(document_id)
+
+            if content and query.text.lower() in content.lower():
 
                 results.append(
-                    document
+                    SearchResult(
+                        document_id=document_id,
+                        score=1.0,
+                        snippet=content,
+                    )
                 )
 
-        return results
+        return results[: query.limit]
