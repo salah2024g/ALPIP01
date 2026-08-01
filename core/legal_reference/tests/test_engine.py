@@ -1,6 +1,4 @@
-from core.legal_reference.engine import (
-    ReferenceEngine
-)
+from core.legal_reference.engine import ReferenceEngine
 
 
 def test_reference_engine():

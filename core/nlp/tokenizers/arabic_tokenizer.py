@@ -1,9 +1,4 @@
 class ArabicTokenizer:
-
-
-    def tokenize(
-        self,
-        text: str
-    ) -> list:
+    def tokenize(self, text: str) -> list:
 
         return text.split()

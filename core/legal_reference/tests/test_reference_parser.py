@@ -7,9 +7,7 @@ def test_article_reference():
 
     parser = LegalReferenceParser()
 
-    refs = parser.parse(
-        "تطبق أحكام المادة (١٥) مع مراعاة المادة 27."
-    )
+    refs = parser.parse("تطبق أحكام المادة (١٥) مع مراعاة المادة 27.")
 
     assert len(refs) == 2
 

@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 
 @dataclass(slots=True)
 class LegalNode:
-
     node_type: str
 
     title: str
@@ -14,10 +13,6 @@ class LegalNode:
 
     children: list["LegalNode"] = field(default_factory=list)
 
-
-    def add_child(
-        self,
-        node: "LegalNode"
-    ):
+    def add_child(self, node: "LegalNode"):
 
         self.children.append(node)

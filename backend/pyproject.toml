@@ -1,10 +1,10 @@
 [tool.black]
 line-length = 100
-target-version = ["py312"]
+target-version = ["py314"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
@@ -12,11 +12,17 @@ select = [
     "F",
     "I",
     "UP",
-    "B"
+    "B",
+    "BLE",
+]
+
+ignore = [
+    "UP046",
 ]
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.14"
 warn_unused_configs = true
 ignore_missing_imports = true
 pretty = true
+explicit_package_bases = true

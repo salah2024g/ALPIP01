@@ -1,9 +1,6 @@
 import re
 
-
-LAW_PATTERN = re.compile(
-    r"القانون\s+رقم\s+([0-9٠-٩]+)\s+لسنة\s+([0-9٠-٩]+)"
-)
+LAW_PATTERN = re.compile(r"القانون\s+رقم\s+([0-9٠-٩]+)\s+لسنة\s+([0-9٠-٩]+)")
 
 
 DECISION_PATTERN = re.compile(
@@ -11,6 +8,4 @@ DECISION_PATTERN = re.compile(
 )
 
 
-REGULATION_PATTERN = re.compile(
-    r"اللائحة\s+التنفيذية"
-)
+REGULATION_PATTERN = re.compile(r"اللائحة\s+التنفيذية")

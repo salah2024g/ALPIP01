@@ -4,7 +4,6 @@ from typing import Any
 
 @dataclass(slots=True)
 class ALDFDocument:
-
     id: str
 
     text: str

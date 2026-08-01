@@ -6,8 +6,6 @@ def build_pipeline():
 
     pipeline = DocumentPipeline()
 
-    pipeline.register(
-        PDFProcessor()
-    )
+    pipeline.register(PDFProcessor())
 
     return pipeline

@@ -1,6 +1,3 @@
-from typing import Dict, List
-
-
 class SearchIndex:
     """
     Basic in-memory search index.
@@ -11,7 +8,7 @@ class SearchIndex:
     """
 
     def __init__(self) -> None:
-        self._documents: Dict[str, str] = {}
+        self._documents: dict[str, str] = {}
 
     def add(self, document_id: str, content: str = "") -> None:
         self._documents[document_id] = content
@@ -19,7 +16,7 @@ class SearchIndex:
     def get(self, document_id: str) -> str | None:
         return self._documents.get(document_id)
 
-    def all(self) -> List[str]:
+    def all(self) -> list[str]:
         return list(self._documents.keys())
 
     def count(self) -> int:

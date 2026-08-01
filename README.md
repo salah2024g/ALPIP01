@@ -2,7 +2,7 @@
 ## Arabic Legal Intelligence Platform
 
 ALPIP is a modular legal intelligence platform designed with:
-
+- Project Baseline: Python 3.14.4
 - Offline First principles
 - Plugin-Based Architecture
 - Next.js Frontend

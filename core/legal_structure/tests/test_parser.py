@@ -1,6 +1,4 @@
-from core.legal_structure.parser.parser import (
-    LegalStructureParser
-)
+from core.legal_structure.parser.parser import LegalStructureParser
 
 
 def test_basic_structure():

@@ -22,6 +22,7 @@ Overall Progress: 0%
 
 Status: In Progress
 
+Project Baseline: Python 3.14.4
 ---
 
 # Phases

@@ -18,9 +18,7 @@ class LegalDocumentIndexer:
         title: str,
         content: str,
     ) -> int:
-        searchable_content = (
-            f"{title}\n{content}"
-        )
+        searchable_content = f"{title}\n{content}"
 
         return self.pipeline.index_document(
             document_id,

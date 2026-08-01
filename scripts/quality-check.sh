@@ -1,28 +1,17 @@
 #!/usr/bin/env bash
-
 set -e
 
-echo "=================================="
-echo "ALPIP Quality Check"
-echo "=================================="
-
-echo
-echo "[1/4] Ruff"
+echo "==> Ruff"
 ruff check .
 
-echo
-echo "[2/4] Black"
+echo "==> Black"
 black --check .
 
-echo
-echo "[3/4] MyPy"
-mypy backend
+echo "==> MyPy (backend)"
+(
+    cd backend
+    mypy app
+)
 
-echo
-echo "[4/4] Pytest"
+echo "==> Pytest"
 pytest
-
-echo
-echo "=================================="
-echo "Quality checks completed successfully."
-echo "=================================="

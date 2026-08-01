@@ -14,11 +14,7 @@ def test_search_service():
 
     service = SearchService(repository)
 
-    results = service.search(
-        SearchQuery(
-            text="tax"
-        )
-    )
+    results = service.search(SearchQuery(text="tax"))
 
     assert len(results) == 1
     assert results[0].document_id == "tax_001"

@@ -1,6 +1,4 @@
-from core.legal_reference.parser.external_parser import (
-    ExternalReferenceParser
-)
+from core.legal_reference.parser.external_parser import ExternalReferenceParser
 
 
 def test_external_references():

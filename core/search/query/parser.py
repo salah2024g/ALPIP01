@@ -7,6 +7,4 @@ class QueryParser:
     """
 
     def parse(self, text: str) -> SearchQuery:
-        return SearchQuery(
-            text=text.strip()
-        )
+        return SearchQuery(text=text.strip())

@@ -7,9 +7,7 @@ def test_search_pipeline():
 
     repository = IndexRepository()
 
-    chunker = DocumentChunker(
-        chunk_size=3
-    )
+    chunker = DocumentChunker(chunk_size=3)
 
     pipeline = SearchPipeline(
         repository,
@@ -23,6 +21,4 @@ def test_search_pipeline():
 
     assert count == 2
 
-    assert len(
-        repository.all_documents()
-    ) == 2
+    assert len(repository.all_documents()) == 2

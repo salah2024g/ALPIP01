@@ -4,7 +4,6 @@ from core.document.processors.base import DocumentProcessor
 
 
 class DocumentPipeline:
-
     def __init__(self):
 
         self._processors: list[DocumentProcessor] = []
@@ -16,12 +15,7 @@ class DocumentPipeline:
     def run(self, document: Document) -> ProcessingResult:
 
         for processor in self._processors:
-
             if processor.supports(document):
-
                 return processor.process(document)
 
-        return ProcessingResult(
-            success=False,
-            errors=["No processor available"]
-        )
+        return ProcessingResult(success=False, errors=["No processor available"])

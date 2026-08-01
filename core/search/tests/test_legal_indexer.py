@@ -10,14 +10,10 @@ def test_legal_document_indexer():
 
     pipeline = SearchPipeline(
         repository,
-        DocumentChunker(
-            chunk_size=50
-        ),
+        DocumentChunker(chunk_size=50),
     )
 
-    indexer = LegalDocumentIndexer(
-        pipeline
-    )
+    indexer = LegalDocumentIndexer(pipeline)
 
     count = indexer.index(
         "tax_law_001",

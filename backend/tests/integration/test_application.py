@@ -1,6 +1,4 @@
-from backend.app.factory.application import (
-    create_application
-)
+from backend.app.factory.application import create_application
 
 
 def test_application_creation():

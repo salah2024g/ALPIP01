@@ -20,7 +20,7 @@ class DocumentChunker:
         words = content.split()
 
         for index in range(0, len(words), self.chunk_size):
-            chunk_words = words[index:index + self.chunk_size]
+            chunk_words = words[index : index + self.chunk_size]
 
             chunks.append(
                 DocumentChunk(

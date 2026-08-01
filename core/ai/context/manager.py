@@ -1,11 +1,4 @@
 class AIContextManager:
+    def build_context(self, documents: list) -> dict:
 
-
-    def build_context(
-        self,
-        documents: list
-    ) -> dict:
-
-        return {
-            "documents": documents
-        }
+        return {"documents": documents}

@@ -6,13 +6,11 @@ from core.legal_structure.parser.normalizer import normalize_number
 
 
 class LegalReferenceParser:
-
     def parse(self, text: str):
 
         references = []
 
         for match in ARTICLE_REFERENCE_PATTERN.finditer(text):
-
             references.append(
                 LegalReference(
                     article_number=normalize_number(match.group(1)),

@@ -5,7 +5,6 @@ from typing import Any
 
 @dataclass(slots=True)
 class Document:
-
     id: str
 
     path: Path

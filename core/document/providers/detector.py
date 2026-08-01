@@ -2,7 +2,6 @@ from pathlib import Path
 
 
 class FileTypeDetector:
-
     @staticmethod
     def detect(path: Path) -> str:
 

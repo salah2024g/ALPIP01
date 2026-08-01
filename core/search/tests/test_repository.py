@@ -12,6 +12,4 @@ def test_index_repository():
 
     assert repository.find("law_001") == "tax article"
 
-    assert repository.all_documents() == [
-        "law_001"
-    ]
+    assert repository.all_documents() == ["law_001"]

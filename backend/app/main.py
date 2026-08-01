@@ -1,6 +1,3 @@
-from backend.app.factory.application import (
-    create_application
-)
-
+from backend.app.factory.application import create_application
 
 app = create_application()

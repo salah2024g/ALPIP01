@@ -13,10 +13,6 @@ def test_pipeline_creation():
 
 def test_document_model():
 
-    document = Document(
-        id="1",
-        path=Path("sample.pdf"),
-        media_type="application/pdf"
-    )
+    document = Document(id="1", path=Path("sample.pdf"), media_type="application/pdf")
 
     assert document.id == "1"

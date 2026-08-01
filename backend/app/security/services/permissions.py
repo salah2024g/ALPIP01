@@ -1,17 +1,8 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class Permission(str, Enum):
-
+class Permission(StrEnum):
     READ = "read"
     WRITE = "write"
+    DELETE = "delete"
     ADMIN = "admin"
-
-
-
-def has_permission(
-    user_permissions: list,
-    required: Permission
-) -> bool:
-
-    return required.value in user_permissions
