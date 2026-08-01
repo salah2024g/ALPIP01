@@ -1,35 +1,24 @@
+from core.search.backends.base import SearchBackend
 from core.search.models.query import SearchQuery, SearchResult
-from core.search.repository.index_repository import IndexRepository
+from core.search.ranking.base import RankingStrategy
 
 
 class SearchService:
     """
-    Search service using repository abstraction.
+    Search service using backend and ranking abstractions.
     """
 
     def __init__(
         self,
-        repository: IndexRepository,
+        backend: SearchBackend,
+        ranking: RankingStrategy,
     ) -> None:
-        self.repository = repository
+        self._backend = backend
+        self._ranking = ranking
 
     def search(
         self,
         query: SearchQuery,
     ) -> list[SearchResult]:
-
-        results = []
-
-        for document_id in self.repository.all_documents():
-            content = self.repository.find(document_id)
-
-            if content and query.text.lower() in content.lower():
-                results.append(
-                    SearchResult(
-                        document_id=document_id,
-                        score=1.0,
-                        snippet=content,
-                    )
-                )
-
-        return results[: query.limit]
+        results = self._backend.search(query)
+        return self._ranking.rank(results)
