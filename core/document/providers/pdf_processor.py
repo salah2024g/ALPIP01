@@ -26,10 +26,7 @@ class PDFProcessor(DocumentProcessor):
         except (fitz.FileDataError, OSError, ValueError):
             try:
                 reader = PdfReader(str(document.path))
-                pages = [
-                    page.extract_text() or ""
-                    for page in reader.pages
-                ]
+                pages = [page.extract_text() or "" for page in reader.pages]
 
                 document.metadata["pages"] = len(reader.pages)
 
