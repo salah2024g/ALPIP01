@@ -3,7 +3,11 @@ from core.search.ranking.base import RankingStrategy
 
 
 class DefaultRankingStrategy(RankingStrategy):
-    """Default ranking based on score."""
+    """
+    Default ranking implementation.
+
+    Currently sorts by score descending.
+    """
 
     def rank(
         self,
@@ -14,3 +18,6 @@ class DefaultRankingStrategy(RankingStrategy):
             key=lambda item: item.score,
             reverse=True,
         )
+
+
+DefaultRanking = DefaultRankingStrategy

@@ -4,11 +4,16 @@ from core.search.models.query import SearchResult
 
 
 class RankingStrategy(ABC):
-    """Base interface for ranking search results."""
+    """
+    Interface for search result ranking.
+    """
 
     @abstractmethod
     def rank(
         self,
         results: list[SearchResult],
     ) -> list[SearchResult]:
-        """Rank search results."""
+        """
+        Rank search results.
+        """
+        ...

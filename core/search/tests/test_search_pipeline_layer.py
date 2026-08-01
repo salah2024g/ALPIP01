@@ -1,27 +1,30 @@
 from core.search.backends.memory import MemorySearchBackend
 from core.search.models.query import SearchQuery
-from core.search.ranking.default import DefaultRankingStrategy
+from core.search.pipeline.pipeline import SearchPipeline
+from core.search.ranking.default import DefaultRanking
 from core.search.repository.index_repository import IndexRepository
 from core.search.services.search import SearchService
 
 
-def test_search_service() -> None:
+def test_search_pipeline():
+
     repository = IndexRepository()
+
+    backend = MemorySearchBackend(repository)
 
     repository.save(
         "tax_001",
-        "income tax law article",
+        "ضريبه الدخل",
     )
-
-    backend = MemorySearchBackend(repository)
-    ranking = DefaultRankingStrategy()
 
     service = SearchService(
         backend,
-        ranking,
+        DefaultRanking(),
     )
 
-    results = service.search(SearchQuery(text="tax"))
+    pipeline = SearchPipeline(service)
+
+    results = pipeline.execute(SearchQuery(text="ضريبة الدخل"))
 
     assert len(results) == 1
     assert results[0].document_id == "tax_001"

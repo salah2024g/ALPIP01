@@ -4,13 +4,21 @@ from core.search.repository.index_repository import IndexRepository
 
 
 class MemorySearchBackend(SearchBackend):
-    def __init__(self, repository: IndexRepository) -> None:
+    """
+    In-memory search backend using repository abstraction.
+    """
+
+    def __init__(
+        self,
+        repository: IndexRepository,
+    ) -> None:
         self._repository = repository
 
     def search(
         self,
         query: SearchQuery,
     ) -> list[SearchResult]:
+
         results: list[SearchResult] = []
 
         for document_id in self._repository.all_documents():

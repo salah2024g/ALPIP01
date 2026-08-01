@@ -21,4 +21,5 @@ class SearchService:
         query: SearchQuery,
     ) -> list[SearchResult]:
         results = self._backend.search(query)
+
         return self._ranking.rank(results)
