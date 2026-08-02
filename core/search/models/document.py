@@ -1,12 +1,16 @@
 from dataclasses import dataclass, field
 
+from core.search.models.metadata import DocumentMetadata
+
 
 @dataclass
 class SearchDocument:
     document_id: str
     title: str
     content: str
-    metadata: dict = field(default_factory=dict)
+    metadata: DocumentMetadata = field(
+        default_factory=DocumentMetadata,
+    )
 
 
 @dataclass
@@ -15,4 +19,6 @@ class DocumentChunk:
     document_id: str
     content: str
     position: int
-    metadata: dict = field(default_factory=dict)
+    metadata: DocumentMetadata = field(
+        default_factory=DocumentMetadata,
+    )
