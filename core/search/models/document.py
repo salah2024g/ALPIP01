@@ -8,9 +8,7 @@ class SearchDocument:
     document_id: str
     title: str
     content: str
-    metadata: DocumentMetadata = field(
-        default_factory=DocumentMetadata,
-    )
+    metadata: DocumentMetadata = field(default_factory=DocumentMetadata)
 
 
 @dataclass
@@ -19,6 +17,4 @@ class DocumentChunk:
     document_id: str
     content: str
     position: int
-    metadata: DocumentMetadata = field(
-        default_factory=DocumentMetadata,
-    )
+    metadata: DocumentMetadata = field(default_factory=DocumentMetadata)
