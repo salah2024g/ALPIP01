@@ -6,7 +6,7 @@ class DefaultRankingStrategy(RankingStrategy):
     """
     Default ranking implementation.
 
-    Currently sorts by score descending.
+    Sorts search results by score in descending order.
     """
 
     def rank(

@@ -31,6 +31,24 @@ class MemorySearchBackend(SearchBackend):
 
         return True
 
+    def _calculate_score(
+        self,
+        content: str,
+        query_text: str,
+    ) -> float:
+        normalized_content = content.lower()
+        normalized_query = query_text.lower().strip()
+
+        if not normalized_query:
+            return 0.0
+
+        occurrences = normalized_content.count(normalized_query)
+
+        if occurrences == 0:
+            return 0.0
+
+        return float(occurrences)
+
     def search(
         self,
         query: SearchQuery,
@@ -49,18 +67,20 @@ class MemorySearchBackend(SearchBackend):
             ):
                 continue
 
-            content = document.content
+            score = self._calculate_score(
+                document.content,
+                query.text,
+            )
 
-            if query.text.lower() in content.lower():
-                results.append(
-                    SearchResult(
-                        document_id=document_id,
-                        score=1.0,
-                        snippet=content,
-                    )
+            if score <= 0:
+                continue
+
+            results.append(
+                SearchResult(
+                    document_id=document_id,
+                    score=score,
+                    snippet=document.content,
                 )
+            )
 
-            if len(results) >= query.limit:
-                break
-
-        return results
+        return results[: query.limit]
