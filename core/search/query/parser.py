@@ -1,10 +1,20 @@
 from core.search.models.query import SearchQuery
 
 
-class QueryParser:
-    """
-    Converts raw user input into a SearchQuery object.
-    """
+class LegalQueryParser:
+    """Parse structured legal search queries."""
 
-    def parse(self, text: str) -> SearchQuery:
-        return SearchQuery(text=text.strip())
+    def parse(
+        self,
+        text: str,
+        *,
+        filters: dict[str, str] | None = None,
+        limit: int = 10,
+    ) -> SearchQuery:
+        normalized = text.strip()
+
+        return SearchQuery(
+            text=normalized,
+            filters=filters or {},
+            limit=limit,
+        )
