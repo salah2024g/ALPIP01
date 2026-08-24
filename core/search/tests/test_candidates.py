@@ -1,4 +1,5 @@
 from core.search.candidates.default import CandidateGenerator
+from core.search.models.metadata import DocumentMetadata
 from core.search.models.query import SearchQuery
 from core.search.repository.index_repository import IndexRepository
 
@@ -91,3 +92,70 @@ def test_candidate_generator_empty_query_returns_no_candidates() -> None:
     results = generator.generate(SearchQuery(text=""))
 
     assert results == []
+
+
+def test_candidate_generator_applies_metadata_filters() -> None:
+    repository = IndexRepository()
+
+    repository.save(
+        "law-1",
+        "tax income law",
+        metadata=DocumentMetadata(
+            document_type="law",
+            jurisdiction="EG",
+        ),
+    )
+    repository.save(
+        "reg-1",
+        "tax income regulation",
+        metadata=DocumentMetadata(
+            document_type="regulation",
+            jurisdiction="EG",
+        ),
+    )
+
+    generator = CandidateGenerator(repository)
+
+    results = generator.generate(
+        SearchQuery(
+            text="tax income",
+            filters={"document_type": "law"},
+        ),
+    )
+
+    assert [result.document_id for result in results] == ["law-1"]
+
+
+def test_candidate_generator_applies_multiple_metadata_filters() -> None:
+    repository = IndexRepository()
+
+    repository.save(
+        "law-eg",
+        "tax income law",
+        metadata=DocumentMetadata(
+            document_type="law",
+            jurisdiction="EG",
+        ),
+    )
+    repository.save(
+        "law-uk",
+        "tax income law",
+        metadata=DocumentMetadata(
+            document_type="law",
+            jurisdiction="UK",
+        ),
+    )
+
+    generator = CandidateGenerator(repository)
+
+    results = generator.generate(
+        SearchQuery(
+            text="tax income",
+            filters={
+                "document_type": "law",
+                "jurisdiction": "EG",
+            },
+        ),
+    )
+
+    assert [result.document_id for result in results] == ["law-eg"]
