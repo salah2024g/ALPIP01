@@ -14,12 +14,18 @@ class AdvancedMatch:
 
 
 class AdvancedMatcher:
-    """Deterministic advanced matcher combining terms, phrases, and boolean logic."""
+    """Deterministic advanced matcher combining terms and phrases."""
 
     def __init__(self) -> None:
         self._terms = SearchTermMatcher()
         self._phrases = PhraseMatcher()
         self._boolean = BooleanMatcher()
+
+    def _extract_phrases(self, text: str) -> list[str]:
+        return [part.strip() for part in text.split('"')[1::2] if part.strip()]
+
+    def _extract_unquoted_text(self, text: str) -> str:
+        return " ".join(text.split('"')[::2]).strip()
 
     def match(
         self,
@@ -36,13 +42,18 @@ class AdvancedMatcher:
                 matched_phrases=[],
             )
 
-        matched_terms = self._terms.match(text, content)
+        unquoted_text = self._extract_unquoted_text(text)
+        phrases = self._extract_phrases(text)
 
-        phrases = [
-            part.strip()
-            for part in text.split('"')
-            if part.strip() and " " in part.strip()
-        ]
+        matched_terms = self._terms.match(
+            unquoted_text,
+            content,
+        )
+
+        terms_matched = not unquoted_text or self._boolean.matches_all(
+            unquoted_text,
+            content,
+        )
 
         matched_phrases = [
             phrase
@@ -50,15 +61,20 @@ class AdvancedMatcher:
             if self._phrases.matches(phrase, content)
         ]
 
-        boolean_matched = self._boolean.matches_any(text, content)
+        phrases_matched = len(matched_phrases) == len(dict.fromkeys(phrases))
 
-        matched = boolean_matched or bool(matched_terms) or bool(matched_phrases)
+        matched = terms_matched and phrases_matched
+
+        term_score = self._terms.count(
+            unquoted_text,
+            content,
+        )
 
         phrase_score = 2 * len(matched_phrases)
 
-        phrase_match_bonus = 1.0 if matched_phrases and not matched_terms else 0.0
+        phrase_match_bonus = 1.0 if matched_phrases and not unquoted_text else 0.0
 
-        score = float(len(matched_terms) + phrase_score + phrase_match_bonus)
+        score = float(term_score + phrase_score + phrase_match_bonus)
 
         return AdvancedMatch(
             matched=matched,

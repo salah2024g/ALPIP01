@@ -19,6 +19,19 @@ class SearchTermMatcher:
             token for token in dict.fromkeys(query_tokens) if token in content_tokens
         ]
 
+    def count(
+        self,
+        query_text: str,
+        content: str,
+    ) -> int:
+        query_tokens = self._tokenizer.tokenize(query_text)
+        content_tokens = self._tokenizer.tokenize(content)
+
+        if not query_tokens:
+            return 0
+
+        return sum(content_tokens.count(token) for token in dict.fromkeys(query_tokens))
+
     def matches_all(
         self,
         query_text: str,

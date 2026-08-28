@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from core.search.matching.advanced import AdvancedMatcher
 from core.search.models.query import SearchQuery
 from core.search.repository.index_repository import IndexRepository
 
@@ -15,6 +16,7 @@ class CandidateGenerator:
 
     def __init__(self, repository: IndexRepository) -> None:
         self._repository = repository
+        self._matcher = AdvancedMatcher()
 
     def _matches_filters(
         self,
@@ -37,16 +39,11 @@ class CandidateGenerator:
 
         return True
 
-    def _tokens(self, text: str) -> list[str]:
-        return [token.strip().lower() for token in text.split() if token.strip()]
-
     def generate(
         self,
         query: SearchQuery,
     ) -> list[Candidate]:
-        tokens = self._tokens(query.text)
-
-        if not tokens:
+        if not query.text.strip():
             return []
 
         candidates: list[Candidate] = []
@@ -60,17 +57,18 @@ class CandidateGenerator:
             if content is None:
                 continue
 
-            body = content.lower()
+            result = self._matcher.match(
+                query.text,
+                content,
+            )
 
-            if not all(token in body for token in tokens):
+            if not result.matched:
                 continue
-
-            score = sum(body.count(token) for token in tokens)
 
             candidates.append(
                 Candidate(
                     document_id=document_id,
-                    score=float(score),
+                    score=result.score,
                 )
             )
 
