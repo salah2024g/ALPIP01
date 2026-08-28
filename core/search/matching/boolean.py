@@ -1,5 +1,5 @@
-from core.search.matching.phrase import PhraseMatcher
 from core.search.matching.default import SearchTermMatcher
+from core.search.matching.phrase import PhraseMatcher
 
 
 class BooleanMatcher:

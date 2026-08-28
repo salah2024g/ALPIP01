@@ -50,9 +50,15 @@ class AdvancedMatcher:
             if self._phrases.matches(phrase, content)
         ]
 
-        matched = self._boolean.matches_any(text, content)
+        boolean_matched = self._boolean.matches_any(text, content)
 
-        score = float(len(matched_terms) + (2 * len(matched_phrases)))
+        matched = boolean_matched or bool(matched_terms) or bool(matched_phrases)
+
+        phrase_score = 2 * len(matched_phrases)
+
+        phrase_match_bonus = 1.0 if matched_phrases and not matched_terms else 0.0
+
+        score = float(len(matched_terms) + phrase_score + phrase_match_bonus)
 
         return AdvancedMatch(
             matched=matched,
