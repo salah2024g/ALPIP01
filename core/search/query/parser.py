@@ -1,8 +1,14 @@
 from core.search.models.query import SearchQuery
+from core.search.query.normalizer import ArabicQueryNormalizer
+from core.search.validation.default import SearchQueryValidator
 
 
 class LegalQueryParser:
-    """Parse structured legal search queries."""
+    """Parse and normalize structured legal search queries."""
+
+    def __init__(self) -> None:
+        self._normalizer = ArabicQueryNormalizer()
+        self._validator = SearchQueryValidator()
 
     def parse(
         self,
@@ -11,10 +17,14 @@ class LegalQueryParser:
         filters: dict[str, str] | None = None,
         limit: int = 10,
     ) -> SearchQuery:
-        normalized = text.strip()
+        normalized = self._normalizer.normalize(text)
 
-        return SearchQuery(
+        query = SearchQuery(
             text=normalized,
-            filters=filters or {},
+            filters=dict(filters or {}),
             limit=limit,
         )
+
+        self._validator.validate(query)
+
+        return query

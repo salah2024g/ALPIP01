@@ -27,11 +27,11 @@ class SearchPipeline:
         self,
         query: SearchQuery,
     ) -> list[SearchResult]:
-
         normalized_text = ArabicQueryNormalizer.normalize(query.text)
 
         normalized_query = SearchQuery(
             text=normalized_text,
+            filters=dict(query.filters),
             limit=query.limit,
         )
 

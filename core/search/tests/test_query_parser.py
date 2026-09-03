@@ -10,7 +10,7 @@ def test_query_parser_strips_text() -> None:
         limit=20,
     )
 
-    assert query.text == "ضريبة الدخل"
+    assert query.text == "ضريبه الدخل"
     assert query.filters == {"document_type": "law"}
     assert query.limit == 20
 
